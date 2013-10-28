@@ -19,14 +19,14 @@ defmodule ScreenTest do
     screen = Screen.init
     tweet_content = [
       Tweet.init("This is a tweet", "knewter", :erlang.now()),
-      Tweet.init("This is a second tweet", "knewter", :erlang.now())
+      Tweet.init("This is a second tweet", "robby_clements", :erlang.now())
     ]
     screen = Screen.load_tweets(screen, tweet_content)
     expected_output = """
             knewter > This is a tweet
-            knewter > This is a second tweet
+     robby_clements > This is a second tweet
     """
-    trailing_lines = Enum.map(1..27, fn(x) -> "\n" end)
+    trailing_lines = Enum.map(1..27, fn(_) -> "\n" end)
     expected_output = Enum.join([expected_output, trailing_lines])
     assert expected_output == Screen.output(screen)
   end
