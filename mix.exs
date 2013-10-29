@@ -16,6 +16,8 @@ defmodule Twutter.Mixfile do
   # Returns the list of dependencies in the format:
   # { :foobar, "~> 0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
-    []
+    [
+      { :oauth, "~> 1.4.0", git: "https://github.com/tim/erlang-oauth.git" }
+    ]
   end
 end
