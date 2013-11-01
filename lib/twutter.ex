@@ -33,6 +33,18 @@ defmodule Twutter do
     versioned_api_root <> "statuses/home_timeline.json"
   end
 
+  def mentions_timeline_url do
+    versioned_api_root <> "statuses/mentions_timeline.json"
+  end
+
+  def user_timeline_url do
+    versioned_api_root <> "statuses/user_timeline.json"
+  end
+
+  def retweets_of_me_url do
+    versioned_api_root <> "statuses/retweets_of_me.json"
+  end
+
   def favorites_url do
     versioned_api_root <> "favorites/list.json"
   end

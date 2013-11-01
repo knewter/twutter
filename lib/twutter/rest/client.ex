@@ -18,7 +18,27 @@ defmodule Twutter.REST.Client do
   end
 
   def favorites(client) do
-    {:ok, _headers, json} = Twutter.OauthClient.get(client, Twutter.favorites_url, [])
+    get_endpoint(client, Twutter.favorites_url)
+  end
+
+  def home_timeline(client) do
+    get_endpoint(client, Twutter.home_timeline_url)
+  end
+
+  def mentions_timeline(client) do
+    get_endpoint(client, Twutter.mentions_timeline_url)
+  end
+
+  def user_timeline(client) do
+    get_endpoint(client, Twutter.user_timeline_url)
+  end
+
+  def retweets_of_me(client) do
+    get_endpoint(client, Twutter.retweets_of_me_url)
+  end
+
+  defp get_endpoint(client, endpoint) do
+    {:ok, _headers, json} = Twutter.OauthClient.get(client, endpoint, [])
     {:ok, JSON.decode(json)}
   end
 end

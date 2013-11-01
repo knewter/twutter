@@ -28,4 +28,16 @@ defmodule TwutterTest do
   test "knows the home timeline url" do
     assert Twutter.home_timeline_url == "https://api.twitter.com/1.1/statuses/home_timeline.json"
   end
+
+  test "knows the mentions timeline url" do
+    assert Twutter.mentions_timeline_url == "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
+  end
+
+  test "knows the retweets of me url" do
+    assert Twutter.retweets_of_me_url == "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
+  end
+
+  test "knows the user timeline url" do
+    assert Twutter.user_timeline_url == "https://api.twitter.com/1.1/statuses/user_timeline.json"
+  end
 end
