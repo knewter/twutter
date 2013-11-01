@@ -1,42 +1,24 @@
+# ported from https://github.com/tim/erlang-oauth-examples/blob/master/src/oauth_twitter.erl
+
 defmodule Twutter.REST.Client do
-  use GenServer.Behaviour
-
-  ### Public API
-  def start_link(auth) do
-    :gen_server.start_link(__MODULE__, auth, [])
+  def start({consumer_key, consumer_secret}) do
+    Twutter.OauthClient.start({consumer_key, consumer_secret, :hmac_sha1})
   end
 
-  def consumer_key(client) do
-    :gen_server.call client, :consumer_key
+  def get_request_token(client) do
+    Twutter.OauthClient.get_request_token(client, Twutter.request_token_url)
   end
 
-  def consumer_secret(client) do
-    :gen_server.call client, :consumer_secret
+  def authorize_url(token) do
+    :oauth.uri(String.to_char_list!(Twutter.authorize_url), [{'oauth_token', token}])
   end
 
-  def access_token(client) do
-    :gen_server.call client, :access_token
+  def get_access_token(client, verifier) do
+    Twutter.OauthClient.get_access_token(client, Twutter.access_token_url, [{'oauth_verifier', verifier}])
   end
 
-  def access_token_secret(client) do
-    :gen_server.call client, :access_token_secret
-  end
-
-  ### GenServer API
-  def init(auth) do
-    {:ok, auth}
-  end
-
-  def handle_call(:consumer_key, _from, auth) do
-    {:reply, auth.consumer_key, auth}
-  end
-  def handle_call(:consumer_secret, _from, auth) do
-    {:reply, auth.consumer_secret, auth}
-  end
-  def handle_call(:access_token, _from, auth) do
-    {:reply, auth.access_token, auth}
-  end
-  def handle_call(:access_token_secret, _from, auth) do
-    {:reply, auth.access_token_secret, auth}
+  def favorites(client) do
+    {:ok, _headers, json} = Twutter.OauthClient.get(client, Twutter.favorites_url, [])
+    {:ok, JSON.decode(json)}
   end
 end

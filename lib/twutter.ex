@@ -10,10 +10,30 @@ defmodule Twutter do
   end
 
   def api_root do
-    "https://api.twitter.com/1.1/"
+    "https://api.twitter.com/"
+  end
+
+  def versioned_api_root do
+    api_root <> "1.1/"
+  end
+
+  def request_token_url do
+    api_root <> "oauth/request_token"
+  end
+
+  def authorize_url do
+    api_root <> "oauth/authorize"
+  end
+
+  def access_token_url do
+    api_root <> "oauth/access_token"
   end
 
   def home_timeline_url do
-    api_root <> "statuses/home_timeline.json"
+    versioned_api_root <> "statuses/home_timeline.json"
+  end
+
+  def favorites_url do
+    versioned_api_root <> "favorites/list.json"
   end
 end

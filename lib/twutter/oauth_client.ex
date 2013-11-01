@@ -69,13 +69,13 @@ defmodule Twutter.OauthClient do
 
   ### Helper functions
   def oauth_get(:header, url, params, consumer, token, token_secret) do
-    signed = :oauth.sign('GET', url, params, consumer, token, token_secret)
+    signed = :oauth.sign('GET', String.to_char_list!(url), params, consumer, token, token_secret)
     {authorization_params, query_params} = Enum.partition(signed, fn({k, _}) -> :lists.prefix('oauth_', k) end)
-    request = {:oauth.uri(url, query_params), [:oauth.header(authorization_params)]}
+    request = {:oauth.uri(String.to_char_list!(url), query_params), [:oauth.header(authorization_params)]}
     :httpc.request(:get, request, [{:autoredirect, false}], [])
   end
   def oauth_get(:querystring, url, params, consumer, token, token_secret) do
-    :oauth.get(url, params, consumer, token, token_secret)
+    :oauth.get(String.to_char_list!(url), params, consumer, token, token_secret)
   end
 
   ### GenServer callbacks
