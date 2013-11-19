@@ -8,13 +8,10 @@ interesting.
 
 ## To test out the basic twitter client
 
+Run `iex -S mix`.  Then:
+
 ```
 consumer = {'key', 'secret'}
-:application.start(:crypto)
-:application.start(:asn1)
-:application.start(:public_key)
-:application.start(:ssl)
-:application.start(:inets)
 {:ok, client} = Twutter.REST.Client.start(consumer)
 {:ok, token} = Twutter.REST.Client.get_request_token(client)
 authorize_url = Twutter.REST.Client.authorize_url(token)

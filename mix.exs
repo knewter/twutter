@@ -4,13 +4,22 @@ defmodule Twutter.Mixfile do
   def project do
     [ app: :twutter,
       version: "0.0.1",
-      elixir: "~> 0.10.4-dev",
+      elixir: "~> 0.11",
       deps: deps ]
   end
 
   # Configuration for the OTP application
   def application do
-    [mod: { Twutter, [] }]
+    [
+      applications: [
+        :crypto,
+        :asn1,
+        :public_key,
+        :ssl,
+        :inets
+      ],
+      mod: { Twutter, [] }
+    ]
   end
 
   # Returns the list of dependencies in the format:
